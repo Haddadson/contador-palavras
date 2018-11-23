@@ -11,15 +11,23 @@ import java.nio.file.Paths;
 
 /**
  *
- * @author DTI
+ * @author Gabriel Haddad
  */
 public class LeitorArquivo {
     private static final String CAMINHO_ARQUIVO = "src/Util/texto.txt";
     
-    public static String lerArquivo(){
+    public static String lerArquivo(String caminhoArquivo){
+        if(caminhoArquivo == null || caminhoArquivo.isEmpty())
+            caminhoArquivo = CAMINHO_ARQUIVO;
         try {
             StringBuilder stringBuilder = new StringBuilder();
-            Files.lines(Paths.get(CAMINHO_ARQUIVO)).forEach(stringBuilder::append);
+            Files.newBufferedReader(Paths.get(caminhoArquivo))
+                    .lines()
+                    .forEach(linha -> {
+                        stringBuilder.append(linha);
+                        stringBuilder.append(System.lineSeparator());
+                    });
+            System.out.println(stringBuilder.toString());
             return stringBuilder.toString();
         } catch (IOException ex) {
             System.out.println("Erro ao ler: " + ex);

@@ -13,14 +13,33 @@ import java.util.List;
  */
 public class PesquisaSequencial {
     
-    private List<ElementoFrase> listaPalavras;
+    private final List<ElementoFrase> listaPalavras;
     private int comparacoes;
+    private long tempoGasto;
     
     public PesquisaSequencial(){
         listaPalavras = new ArrayList<>();
         comparacoes = 0;
+        tempoGasto = 0;
+    }
+
+    public int getComparacoes() {
+        return comparacoes;
+    }   
+
+    public void setTempoGasto(long tempoGasto) {
+        this.tempoGasto = tempoGasto;
     }
     
+    public long getTempoGasto() {
+        return tempoGasto;
+    }
+
+    public List<ElementoFrase> getListaPalavras() {
+        return listaPalavras;
+    }
+    
+    //TODO: verificarSeListaContemPalavra deve ser trocado por pesquisa
     public void adicionarEmLista(ElementoFrase palavra){
         if(listaPalavras.size() <= 1024 
            && palavra != null && palavra.getPalavra() != null
@@ -49,8 +68,26 @@ public class PesquisaSequencial {
     }
     
     public void imprimirLista(){
+        System.out.println("Lista - Pesquisa Sequencial");
         listaPalavras.forEach((elemento) -> {
-            System.out.println(elemento.toString() + "\n");
+            System.out.println(elemento.toString());
         });
+    }
+    
+    public ElementoFrase pesquisaSequencial(String palavraBusca){
+        ElementoFrase resultado = null;
+        long tempoInicial = System.currentTimeMillis();
+        for (ElementoFrase elemento : listaPalavras){
+            if(elemento != null && elemento.getPalavra().equals(palavraBusca.toLowerCase())){
+                resultado = elemento;
+            }
+            comparacoes++;
+        }
+        setTempoGasto(System.currentTimeMillis() - tempoInicial);
+        return resultado;
+    }
+    
+    public String obterInformacoesPesquisa(){
+        return "Comparações: " + getComparacoes() + "\nTempo Gasto: " + getTempoGasto() + " ms";
     }
 }

@@ -7,7 +7,7 @@ package Util;
 
 /**
  *
- * @author DTI
+ * @author Gabriel Haddad
  */
 public class ElementoFrase {
    private String palavra;
