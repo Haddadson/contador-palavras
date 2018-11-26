@@ -29,9 +29,12 @@ Também faz parte do trabalho descobrir como fazer a **leitura** de um arquivo t
 ### Exemplos
 No texto *“dois mais dois são quatro”* o seu programa deverá imprimir:
 
->  dois 2
+> dois 2
+
 > mais 1
+
 > quatro 1
+
 > são 1
 
 Se o seu programa chama-se Freq e você quiser contar a frequência do arquivo *texto.txt* utilizando um hash com endereçamento aberto, sua chamada deve ser:
