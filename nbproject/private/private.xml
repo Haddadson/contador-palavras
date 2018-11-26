@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/EstruturasDados/PesquisaSequencial.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>47</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/Util/ComparadorElementoFrase.java</file>
             <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/Util/ElementoFrase.java</file>
             <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/Util/LeitorArquivo.java</file>
             <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/EstruturasDados/PesquisaSequencial.java</file>
+            <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/EstruturasDados/PesquisaBinaria.java</file>
+            <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/EstruturasDados/EstruturasDados.java</file>
             <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/Util/texto.txt</file>
+            <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/EstruturasDados/PesquisaArray.java</file>
             <file>file:/C:/Users/DTI/Desktop/Itens%20pessoais/PUC/2º%20Período/AEDS%20II/TP02/contador-palavras/src/App.java</file>
         </group>
     </open-files>

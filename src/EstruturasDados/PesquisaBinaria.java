@@ -5,8 +5,12 @@
  */
 package EstruturasDados;
 
+import Util.ComparadorElementoFrase;
 import Util.ElementoFrase;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -25,52 +29,62 @@ public class PesquisaBinaria extends PesquisaArray {
         if(validarAdicaoPalavra(palavra)){
             System.out.println("------------------------------");
             System.out.println("Adicionando: \"" + palavra.getPalavra() + "\"");
-            arrayElementoFrase = listaPalavras.toArray(new ElementoFrase[listaPalavras.size()]);
-            if(efetuarPesquisaBinaria(arrayElementoFrase, 
-                    palavra.getPalavra(), listaPalavras.size(), 0) != -1){
-                listaPalavras.stream()
-                        .filter(o -> o.getPalavra().equals(palavra.getPalavra()))
-                        .forEach(o -> {
-                            o.setQuantidade(o.getQuantidade() + 1);
-                            System.out.println("Quantidade: " + o.getQuantidade());
-                        });
-            }
-            else{
+            if(listaPalavras.isEmpty()){
                 listaPalavras.add(palavra);
                 System.out.println("Quantidade: " + palavra.getQuantidade());
+
+            }else {
+                arrayElementoFrase = listaPalavras.toArray(new ElementoFrase[listaPalavras.size()]);
+                int posicaoElemento = binarySearch(arrayElementoFrase, palavra.getPalavra());
+                if (posicaoElemento == -1) {
+                    listaPalavras.add(palavra);
+                    System.out.println("Quantidade: " + palavra.getQuantidade());
+                } else {
+                    arrayElementoFrase[posicaoElemento].setQuantidade(arrayElementoFrase[posicaoElemento].getQuantidade() + 1);
+                    List<ElementoFrase> listaAuxiliar = Arrays.asList(arrayElementoFrase);
+                    listaPalavras = new ArrayList<>(listaAuxiliar);
+                    
+                    System.out.println("Quantidade: " + palavra.getQuantidade());
+                }
             }
             System.out.println(obterInformacoesPesquisa());
         }
     }
     
-    public int efetuarPesquisaBinaria(ElementoFrase[] vetorPalavras, String palavraBuscada, int fim, int inicio){
-        long tempoInicial = System.currentTimeMillis(); 
-        int resultado = pesquisaBinaria((ElementoFrase[]) listaPalavras.toArray(), 
-                    palavraBuscada, listaPalavras.size(), 0);
-        setTempoGasto(System.currentTimeMillis() - tempoInicial);
+    public int pesquisaBinariaRecursiva(ElementoFrase arr[], int inicio, int fim, String x) {
+        
+        if (fim >= inicio) {
+            int meio = inicio + (fim - inicio) / 2;
 
-        return resultado;
-    }
-    
-    public int pesquisaBinaria(ElementoFrase[] vetorPalavras, String palavraBuscada, int fim, int inicio) {
-        int meio = (fim + inicio) / 2;
-        if (fim == inicio || inicio == meio || fim == meio) {
-            comparacoes++;
-            return -1;
+            if (arr[meio].getPalavra().equals(x)) {
+                return meio;
+            }
+
+            if (arr[meio].getPalavra().compareToIgnoreCase(x) > 0) {
+                return pesquisaBinariaRecursiva(arr, inicio, meio - 1, x);
+            }
+
+            return pesquisaBinariaRecursiva(arr, meio + 1, fim, x);
         }
-        if (vetorPalavras[meio].getPalavra().compareToIgnoreCase(palavraBuscada) < 0) {
-            comparacoes++;
-            return pesquisaBinaria(vetorPalavras, palavraBuscada, fim, meio);
-        } else if (vetorPalavras[meio].getPalavra().compareToIgnoreCase(palavraBuscada) > 0) {
-            comparacoes++;
-            return pesquisaBinaria(vetorPalavras, palavraBuscada, meio, inicio);
-        } else if (vetorPalavras[meio].getPalavra().compareToIgnoreCase(palavraBuscada) == 0) {
-            comparacoes++;
-            return meio;
-        }
+
         return -1;
     }
     
+    int binarySearch(ElementoFrase arr[], String x) {
+        int lo = 0;
+        int hi = arr.length - 1;
 
-    
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (arr[mid].getPalavra().compareToIgnoreCase(x) < 0) {
+                hi = mid - 1;
+            } else if (arr[mid].getPalavra().compareToIgnoreCase(x) > 0) {
+                lo = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+
+        return -1;
+    }
 }
