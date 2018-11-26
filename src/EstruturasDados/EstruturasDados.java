@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package EstruturasDados;
 
 import Util.ElementoFrase;
@@ -12,12 +7,14 @@ import Util.ElementoFrase;
  * @author Gabriel Haddad
  */
 public class EstruturasDados {
-    private PesquisaSequencial pseq;
-    private PesquisaBinaria pbinaria;
+    private final PesquisaSequencial pseq;
+    private final PesquisaBinaria pbinaria;
+    private final ArvoreBinaria arvore;
 
     public EstruturasDados(){
         pseq = new PesquisaSequencial();
         pbinaria = new PesquisaBinaria();
+        arvore = new ArvoreBinaria();
     }
     
     public void popularPesquisaSequencial(String[] palavras){
@@ -46,5 +43,19 @@ public class EstruturasDados {
         pbinaria.imprimirLista();
     }
     
+     public void popularArvoreBinaria(String[] palavras){
+        System.out.println("Preenchendo Árvore Binária de Pesquisa");
+        try {
+           for (String palavra : palavras) {
+               arvore.inserir(new ElementoFrase(palavra));
+           }
+        } catch (Exception ex) {
+            System.out.println("Ocorreu um erro ao inserir: "  + ex);
+        }
+    }
     
+    public void imprimirArvoreBinaria(){
+        System.out.println("\nImprimindo Árvore Binária de Pesquisa");
+        System.out.println(arvore.imprimirArvoreBinariaPesquisa(arvore.getRaiz()));
+    }
 }

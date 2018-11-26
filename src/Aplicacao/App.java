@@ -1,8 +1,11 @@
+package Aplicacao;
+
 
 import EstruturasDados.EstruturasDados;
 import EstruturasDados.PesquisaSequencial;
 import Util.ElementoFrase;
 import Util.LeitorArquivo;
+import java.util.Arrays;
 
 /**
  *
@@ -21,11 +24,22 @@ public class App {
                 case "pseq":
                     estruturas.popularPesquisaSequencial(palavras);
                     estruturas.imprimirListaPesquisaSequencial();
-                break;
+                    break;
                 case "pbinaria":
                     estruturas.popularPesquisaBinaria(palavras);
                     estruturas.imprimirListaPesquisaBinaria();
-                break;
+                    break;
+                case "arvore":
+                    //TODO
+                    estruturas.popularArvoreBinaria(palavras);
+                    estruturas.imprimirArvoreBinaria();
+                    break;
+                case "haberto":
+                    //TODO
+                    break;
+                case "hlista":
+                    //TODO
+                    break;
             }
         }
     }
