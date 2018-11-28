@@ -1,6 +1,7 @@
 package EstruturasDados;
 
 import Util.ElementoFrase;
+import java.util.ArrayList;
 
 /**
  *
@@ -56,6 +57,9 @@ public class EstruturasDados {
     
     public void imprimirArvoreBinaria(){
         System.out.println("\nImprimindo Árvore Binária de Pesquisa");
-        System.out.println(arvore.imprimirArvoreBinariaPesquisa(arvore.getRaiz()));
+        ArrayList<ElementoFrase> valoresArvore = arvore.armazenarValoresArvore(arvore.getRaiz());
+        valoresArvore.forEach((valor) -> {
+            System.out.println(valor.toString());
+        });
     }
 }

@@ -1,6 +1,7 @@
 package EstruturasDados;
 
 import Util.ElementoFrase;
+import java.util.ArrayList;
 
 /**
  *
@@ -9,19 +10,38 @@ import Util.ElementoFrase;
 
 public class ArvoreBinaria {
     private No raiz;
+    private int comparacoes;
+    private long tempoGasto;
+    private final ArrayList<ElementoFrase> values;
 
     public ArvoreBinaria() {
         raiz = null;
+        values = new ArrayList<>();
     }
 
     public No getRaiz() {
         return raiz;
     }
     
+    public int getComparacoes() {
+        return comparacoes;
+    }
+
+    public void setTempoGasto(long tempoGasto) {
+        this.tempoGasto = tempoGasto;
+    }
+
+    public long getTempoGasto() {
+        return tempoGasto;
+    }
+    
     public void inserir(ElementoFrase x) throws Exception {
+        System.out.println("------------------------------");
+        System.out.println("Adicionando: \"" + x.getPalavra() + "\"");
         if(!pesquisar(x)){
             raiz = inserir(x, raiz);
         }
+        System.out.println(obterInformacoesPesquisa());
     }
 
     private No inserir(ElementoFrase x, No i) throws Exception {
@@ -40,104 +60,47 @@ public class ArvoreBinaria {
     }
 
     public boolean pesquisar(ElementoFrase x) {
-        return pesquisar(x, raiz);
+        long tempoInicial = System.currentTimeMillis();
+        comparacoes = 0;
+        boolean resultado = pesquisar(x, raiz);
+        setTempoGasto(System.currentTimeMillis() - tempoInicial);
+        System.out.println();
+        return resultado;
     }
 
     private boolean pesquisar(ElementoFrase x, No i) {
         boolean resp;
         if (i == null) {
+            comparacoes++;
             resp = false;
         } else if (x.getPalavra().compareToIgnoreCase(i.elemento.getPalavra()) == 0) {
-            x.setQuantidade(x.getQuantidade() + 1);
+            comparacoes++;
+            i.elemento.setQuantidade(i.elemento.getQuantidade() + 1);
             resp = true;
         } else if (x.getPalavra().compareToIgnoreCase(i.elemento.getPalavra()) < 0) {
+            comparacoes++;
             resp = pesquisar(x, i.esq);
         } else {
+            comparacoes++;
             resp = pesquisar(x, i.dir);
         }
         return resp;
     }
 
-    public void remover(ElementoFrase x) throws Exception {
-        raiz = remover(x, raiz);
+    public ArrayList<ElementoFrase> armazenarValoresArvore(No raiz) {
+        percorrerArvore(raiz);
+        return values;
     }
 
-    private No remover(ElementoFrase x, No i) throws Exception {
-        if (i == null) {
-            throw new Exception("Erro!");
-        } else if (x.getPalavra().compareToIgnoreCase(i.elemento.getPalavra()) < 0) {
-            i.esq = remover(x, i.esq);
-        } else if (x.getPalavra().compareToIgnoreCase(i.elemento.getPalavra()) > 0) {
-            i.dir = remover(x, i.dir);
-        } else if (i.dir == null) {
-            i = i.esq;
-        } else if (i.esq == null) {
-            i = i.dir;
-        } else {
-            i.esq = anterior(i, i.esq);
-        }
-        return i;
-    }
-
-    private No anterior(No i, No j) {
-        if (j.dir != null) {
-            j.dir = anterior(i, j.dir);
-        } else {
-            i.elemento = j.elemento;
-            j = j.esq;
-        }
-        return j;
-    }
-
-    public void mostrarCentral() {
-        mostrarCentral(raiz);
-    }
-
-    private void mostrarCentral(No i) {
-        if (i != null) {
-            mostrarCentral(i.esq);
-            System.out.print(i.elemento + " ");
-            mostrarCentral(i.dir);
-        }
-    }
-
-    public void mostrarPre() {
-        mostrarPre(raiz);
-    }
-
-    private void mostrarPre(No i) {
-        if (i != null) {
-            System.out.print(i.elemento + " ");
-            mostrarPre(i.esq);
-            mostrarPre(i.dir);
-        }
-    }
-
-    public void mostrarPos() {
-        mostrarPos(raiz);
-    }
-
-    private void mostrarPos(No i) {
-        if (i != null) {
-            mostrarPos(i.esq);
-            mostrarPos(i.dir);
-            System.out.print(i.elemento
-                    + " ");
+    private void percorrerArvore(No node) {
+        if (node != null) {
+            percorrerArvore(node.esq);
+            values.add(node.elemento);
+            percorrerArvore(node.dir);
         }
     }
     
-    //Ao chamar, passar raiz como parâmetro
-    public String imprimirArvoreBinariaPesquisa(No aux) {
-        String retorno = "";
-        if (aux != null) {
-            retorno += aux.elemento.toString();
-            retorno += System.lineSeparator();
-            retorno += imprimirArvoreBinariaPesquisa(aux.esq);
-            retorno += System.lineSeparator();
-            retorno += imprimirArvoreBinariaPesquisa(aux.dir);
-            retorno += System.lineSeparator();
-
-        }
-        return retorno;
+    public String obterInformacoesPesquisa(){
+        return "Comparações: " + getComparacoes() + "\nTempo Gasto: " + getTempoGasto() + " ms";
     }
 }
