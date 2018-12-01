@@ -2,10 +2,7 @@ package Aplicacao;
 
 
 import EstruturasDados.EstruturasDados;
-import EstruturasDados.PesquisaSequencial;
-import Util.ElementoFrase;
 import Util.LeitorArquivo;
-import java.util.Arrays;
 
 /**
  *
@@ -17,30 +14,39 @@ public class App {
     public static void main(String[] args){
         if(args.length > 0 ){
             EstruturasDados estruturas = new EstruturasDados();
-            String textoArquivo = LeitorArquivo.lerArquivo(args[1]).toLowerCase();
-            String[] palavras = textoArquivo.split("\\r?\\n|[\\p{Punct}\\s]+");
+            String textoArquivo;
             
-            switch(args[0]){
-                case "pseq":
-                    estruturas.popularPesquisaSequencial(palavras);
-                    estruturas.imprimirListaPesquisaSequencial();
-                    break;
-                case "pbinaria":
-                    estruturas.popularPesquisaBinaria(palavras);
-                    estruturas.imprimirListaPesquisaBinaria();
-                    break;
-                case "arvore":
-                    //TODO
-                    estruturas.popularArvoreBinaria(palavras);
-                    estruturas.imprimirArvoreBinaria();
-                    break;
-                case "haberto":
-                    //TODO
-                    break;
-                case "hlista":
-                    //TODO
-                    break;
+            if(args.length > 1)
+                textoArquivo = LeitorArquivo.lerArquivo(args[1]).toLowerCase();
+            else {
+                textoArquivo = LeitorArquivo.lerArquivo("").toLowerCase();
             }
+            String[] palavras = textoArquivo.split("\\r?\\n|[\\p{Punct}\\s]+");
+            if(palavras.length > 0){
+                switch (args[0]) {
+                    case "pseq":
+                        estruturas.popularPesquisaSequencial(palavras);
+                        estruturas.imprimirListaPesquisaSequencial();
+                        break;
+                    case "pbinaria":
+                        estruturas.popularPesquisaBinaria(palavras);
+                        estruturas.imprimirListaPesquisaBinaria();
+                        break;
+                    case "arvore":
+                        estruturas.popularArvoreBinaria(palavras);
+                        estruturas.imprimirArvoreBinaria();
+                        break;
+                    case "haberto":
+                        //TODO
+                        break;
+                    case "hlista":
+                        //TODO
+                        break;
+                }
+            } else {
+                System.out.println("O arquivo informado está vazio.");
+            }
+            
         }
     }
     

@@ -50,7 +50,7 @@ public class EstruturasDados {
     
     public void popularPesquisaBinaria(String[] palavras){
         long tempoInicial = System.currentTimeMillis();
-        System.out.println("Preenchendo lista para Pesquisa Binária");
+        System.out.println("Preenchendo lista para Pesquisa Binaria");
         for (String palavra : palavras) {
             pbinaria.adicionarEmLista(new ElementoFrase(palavra));
         }
@@ -59,7 +59,7 @@ public class EstruturasDados {
     }
     
     public void imprimirListaPesquisaBinaria(){
-        System.out.println("\nImprimindo Lista - Pesquisa Binária");
+        System.out.println("\nImprimindo Lista - Pesquisa Binaria");
         pbinaria.ordenarLista();
         pbinaria.imprimirLista();
         System.out.println("--------------------------------------------");
@@ -68,7 +68,7 @@ public class EstruturasDados {
     
      public void popularArvoreBinaria(String[] palavras){
         long tempoInicial = System.currentTimeMillis();
-        System.out.println("Preenchendo Árvore Binária de Pesquisa");
+        System.out.println("Preenchendo Arvore Binaria de Pesquisa");
         try {
            for (String palavra : palavras) {
                arvore.inserir(new ElementoFrase(palavra));
@@ -81,7 +81,7 @@ public class EstruturasDados {
     }
     
     public void imprimirArvoreBinaria(){
-        System.out.println("\nImprimindo Árvore Binária de Pesquisa");
+        System.out.println("\nImprimindo Arvore Binaria de Pesquisa");
         ArrayList<ElementoFrase> valoresArvore = arvore.armazenarValoresArvore(arvore.getRaiz());
         valoresArvore.forEach((valor) -> {
             System.out.println(valor.toString());
