@@ -41,7 +41,6 @@ public class ArvoreBinaria {
         if(!pesquisar(x)){
             raiz = inserir(x, raiz);
         }
-        System.out.println(obterInformacoesPesquisa());
     }
 
     private No inserir(ElementoFrase x, No i) throws Exception {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package EstruturasDados;
 
 import Util.ElementoFrase;
@@ -10,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
+/**Classe para representar a estrutura de dados que utiliza pesquisa binária
+ * para checar se o elemento já existe
  *
  * @author Gabriel Haddad
  */
@@ -23,6 +19,14 @@ public class PesquisaBinaria extends PesquisaArray {
         super.tempoGasto = 0;
     }
     
+    /**Método para adicionar uma palavra na estrutura, validando se a mesma já 
+     * está presente para incrementar sua quantidade e adicionando-a caso não 
+     * esteja
+     *
+     * @author Gabriel Haddad
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser 
+     * inserida e a quantidade de vezes que ela aparece no texto
+     */
     public void adicionarEmLista(ElementoFrase palavra){
         if(validarAdicaoPalavra(palavra)){
             comparacoes = 0;
@@ -34,19 +38,15 @@ public class PesquisaBinaria extends PesquisaArray {
             if(listaPalavras.isEmpty()){
                 comparacoes++;
                 listaPalavras.add(palavra);
-                System.out.println("Quantidade: " + palavra.getQuantidade());
             } else {
                 arrayElementoFrase = listaPalavras.toArray(new ElementoFrase[listaPalavras.size()]);
                 int posicaoElemento = pesquisaBinaria(arrayElementoFrase, palavra.getPalavra());
                 if (posicaoElemento == -1) {
                     listaPalavras.add(palavra);
-                    System.out.println("Quantidade: " + palavra.getQuantidade());
                 } else {
                     arrayElementoFrase[posicaoElemento].setQuantidade(arrayElementoFrase[posicaoElemento].getQuantidade() + 1);
                     List<ElementoFrase> listaAuxiliar = Arrays.asList(arrayElementoFrase);
                     listaPalavras = new ArrayList<>(listaAuxiliar);
-                    
-                    System.out.println("Quantidade: " + palavra.getQuantidade());
                 }
             }
             setTempoGasto(System.currentTimeMillis() - tempoInicial);
@@ -55,6 +55,16 @@ public class PesquisaBinaria extends PesquisaArray {
         }
     }
 
+    /**Método para realizar a pesquisa binária no vetor, verificando se o elemento
+     * já está presente
+     *
+     * @author Gabriel Haddad
+     * @param arr ElementoFrase[] - vetor de ElementoFrase que representa a estrutura 
+     * de dados
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser 
+     * inserida e a quantidade de vezes que ela aparece no texto
+     * @return -1 caso não encontre o elemento, a posição do elemento caso encontre
+     */
     public int pesquisaBinaria(ElementoFrase arr[], String palavra) {
         int low = 0;
         int high = arr.length - 1;
