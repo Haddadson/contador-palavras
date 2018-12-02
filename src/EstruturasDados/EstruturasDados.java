@@ -2,6 +2,8 @@ package EstruturasDados;
 
 import Util.ElementoFrase;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,12 +15,14 @@ public class EstruturasDados {
     private final PesquisaSequencial pseq;
     private final PesquisaBinaria pbinaria;
     private final ArvoreBinaria arvore;
+    private final HashAberto haberto;
     private long tempoGastoTotal;
     
     public EstruturasDados(){
         pseq = new PesquisaSequencial();
         pbinaria = new PesquisaBinaria();
         arvore = new ArvoreBinaria();
+        haberto = new HashAberto(1024, 100);
         tempoGastoTotal = 0;
     }
 
@@ -86,6 +90,27 @@ public class EstruturasDados {
         valoresArvore.forEach((valor) -> {
             System.out.println(valor.toString());
         });
+        System.out.println("--------------------------------------------");
+        System.out.println("Tempo total gasto para preencher estrutura: " + tempoGastoTotal + " ms");
+    }
+    
+    public void popularHashAberto(String[] palavras) {
+        long tempoInicial = System.currentTimeMillis();
+        System.out.println("Preenchendo lista para Hash Aberto");
+        try {
+            for (String palavra : palavras) {
+                haberto.inserir(new ElementoFrase(palavra));
+            }
+        } catch (Exception ex) {
+            System.out.println("Ocorreu um erro ao inserir: " + ex);
+        }
+        setTempoGastoTotal(System.currentTimeMillis() - tempoInicial);
+
+    }
+
+    public void imprimirHashAberto() {
+        System.out.println("\nImprimindo Hash Aberto");
+        haberto.imprimirHashOrdenado();
         System.out.println("--------------------------------------------");
         System.out.println("Tempo total gasto para preencher estrutura: " + tempoGastoTotal + " ms");
     }

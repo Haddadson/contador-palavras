@@ -37,7 +37,8 @@ public class App {
                         estruturas.imprimirArvoreBinaria();
                         break;
                     case "haberto":
-                        //TODO
+                        estruturas.popularHashAberto(palavras);
+                        estruturas.imprimirHashAberto();
                         break;
                     case "hlista":
                         //TODO

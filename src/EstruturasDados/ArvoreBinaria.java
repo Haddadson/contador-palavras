@@ -64,7 +64,7 @@ public class ArvoreBinaria {
         comparacoes = 0;
         boolean resultado = pesquisar(x, raiz);
         setTempoGasto(System.currentTimeMillis() - tempoInicial);
-        System.out.println();
+        System.out.println(obterInformacoesPesquisa());
         return resultado;
     }
 
