@@ -41,7 +41,8 @@ public class App {
                         estruturas.imprimirHashAberto();
                         break;
                     case "hlista":
-                        //TODO
+                        estruturas.popularHashLista(palavras);
+                        estruturas.imprimirHashLista();
                         break;
                 }
             } else {
