@@ -38,6 +38,8 @@ No texto *“dois mais dois são quatro”* o seu programa deverá imprimir:
 > são 1
 
 Se o seu programa chama-se Freq e você quiser contar a frequência do arquivo *texto.txt* utilizando um hash com endereçamento aberto, sua chamada deve ser:
+>java -jar "dist\contador-palavras.jar" pbinaria src/Util/texto.txt
+
 >Freq haberto texto.txt 
 
-
+_É recomendável o uso da primeira opção devido à divisão das classes em pacotes._
