@@ -12,8 +12,8 @@ import java.util.Collections;
  */
 
 public class HashLista {
-    private int tamanhoVetorHash;
-    private Lista tabela[];
+    private final int tamanhoVetorHash;
+    private final Lista tabela[];
     private int comparacoes;
     private long tempoGasto;
 
@@ -90,14 +90,15 @@ public class HashLista {
      * inserção
      */
     public void inserir(ElementoFrase elemento) throws Exception {
-        int pos = hash(elemento);
-        System.out.println("------------------------------");
-        System.out.println("Adicionando: \"" + elemento.getPalavra() + "\"");
-        tabela[pos].inserirFim(elemento);
-        comparacoes = tabela[pos].getComparacoes();
-        tempoGasto = tabela[pos].getTempoGasto();
-        System.out.println(obterInformacoesPesquisa());
-
+        if(validarAdicaoPalavra(elemento)){
+            int pos = hash(elemento);
+            System.out.println("------------------------------");
+            System.out.println("Adicionando: \"" + elemento.getPalavra() + "\"");
+            tabela[pos].inserirFim(elemento);
+            comparacoes = tabela[pos].getComparacoes();
+            tempoGasto = tabela[pos].getTempoGasto();
+            System.out.println(obterInformacoesPesquisa());
+        }
     }
 
     /**
@@ -133,6 +134,25 @@ public class HashLista {
             System.out.println(elemento.toString());
         });
     }
+    
+    
+    /**
+     * Método para validar se a palavra pode ser adicionada na estrutura de
+     * dados
+     *
+     * @author Gabriel Haddad
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser
+     * inserida e a quantidade de vezes que ela aparece no texto
+     * @return boolean - Retorna true caso a palavra esteja válida para
+     * inserção, caso contrário retorna false
+     */
+    public boolean validarAdicaoPalavra(ElementoFrase palavra) {
+        return tabela.length <= 1024
+                && palavra != null && palavra.getPalavra() != null
+                && palavra.getPalavra().length() <= 20
+                && palavra.getPalavra().length() > 0;
+    }
+    
     
     /**
      * Método para obter o número de comparações e o tempo gasto na pesquisa

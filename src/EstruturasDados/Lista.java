@@ -53,22 +53,25 @@ public class Lista {
      * @param elemento ElementoFrase - elemento a ser inserido no início da estrutura
      */
     public void inserirInicio(ElementoFrase elemento) {
-        if (primeiroEstaNulo()) {
-            primeiro = new Celula(elemento);
-        } else if (!pesquisarEIncrementarQuantidadePalavra(elemento.getPalavra())) {
-            Celula tmp = new Celula(elemento);
+        if(validarAdicaoPalavra(elemento)){
+            if (primeiroEstaNulo()) {
+                primeiro = new Celula(elemento);
+            } else if (!pesquisarEIncrementarQuantidadePalavra(elemento.getPalavra())) {
+                Celula tmp = new Celula(elemento);
 
-            tmp.ant = primeiro;
-            tmp.prox = primeiro.prox;
-            primeiro.prox = tmp;
-            if (primeiro == ultimo) {
-                ultimo = tmp;
-            } else {
-                tmp.prox.ant = tmp;
+                tmp.ant = primeiro;
+                tmp.prox = primeiro.prox;
+                primeiro.prox = tmp;
+                if (primeiro == ultimo) {
+                    ultimo = tmp;
+                } else {
+                    tmp.prox.ant = tmp;
+                }
+                tmp = null;
+                this.qtdItens++;
             }
-            tmp = null;
-            this.qtdItens++;
         }
+        
     }
 
     
@@ -81,14 +84,16 @@ public class Lista {
      * estrutura
      */
     public void inserirFim(ElementoFrase elemento) {
-        if(primeiroEstaNulo()){
-            comparacoes++;
-            primeiro = new Celula(elemento);
-        } else if (!pesquisarEIncrementarQuantidadePalavra(elemento.getPalavra())) {
-            ultimo.prox = new Celula(elemento);
-            ultimo.prox.ant = ultimo;
-            ultimo = ultimo.prox;
-            this.qtdItens++;
+        if (validarAdicaoPalavra(elemento)) {
+            if (primeiroEstaNulo()) {
+                comparacoes++;
+                primeiro = new Celula(elemento);
+            } else if (!pesquisarEIncrementarQuantidadePalavra(elemento.getPalavra())) {
+                ultimo.prox = new Celula(elemento);
+                ultimo.prox.ant = ultimo;
+                ultimo = ultimo.prox;
+                this.qtdItens++;
+            }
         }
     }
 
@@ -259,7 +264,25 @@ public class Lista {
         return primeiro == ultimo;
     }
 
+    
+    /**
+     * Método para validar se a palavra pode ser adicionada na estrutura de
+     * dados
+     *
+     * @author Gabriel Haddad
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser
+     * inserida e a quantidade de vezes que ela aparece no texto
+     * @return boolean - Retorna true caso a palavra esteja válida para
+     * inserção, caso contrário retorna false
+     */
+    public boolean validarAdicaoPalavra(ElementoFrase palavra) {
+        return qtdItens <= 1024
+                && palavra != null && palavra.getPalavra() != null
+                && palavra.getPalavra().length() <= 20
+                && palavra.getPalavra().length() > 0;
+    }    
 
+    
     /**
      * Método para verificar se o primeiro elemento da estrutura está nulo
      *

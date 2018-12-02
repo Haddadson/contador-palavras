@@ -30,7 +30,8 @@ public class ContadorPalavras {
      * </ul>
      * <br><br> 
      * Exemplo de chamada:
-     * <b>java ContadorPalavras pseq src/util/texto.txt</b>
+     * <b>java -jar "dist\contador-palavras.jar" haberto src/Util/texto.txt</b>
+     * <b>java ContadorPalavras pseq src/util/texto.txt</b><br>
      */
     public static void main(String[] args){
         if(args.length > 0 ){

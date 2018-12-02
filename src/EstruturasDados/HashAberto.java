@@ -80,25 +80,30 @@ public class HashAberto {
      */
     public void inserir(ElementoFrase elemento) throws Exception {
         comparacoes = 0;
-        System.out.println("------------------------------");
-        System.out.println("Adicionando: \"" + elemento.getPalavra() + "\"");
-        
-        int pos = hash(elemento);
- 
-        if (tabela[pos] == null) {
+        if(validarAdicaoPalavra(elemento)){
             comparacoes++;
-            tabela[pos] = elemento;
-        } else if (tabela[pos].getPalavra().equals(elemento.getPalavra())){
-            comparacoes++;                        
-            tabela[pos].setQuantidade(tabela[pos].getQuantidade() + 1);
-        }else if ((tamanhoVetorHash + reserva) < tabela.length) {
-            comparacoes++;
-            tabela[tamanhoVetorHash + reserva] = elemento;
-            reserva++;
-        } else {
-            throw new Exception("::ERRO:: Area de reserva cheia");
+            System.out.println("------------------------------");
+            System.out.println("Adicionando: \"" + elemento.getPalavra() + "\"");
+
+            int pos = hash(elemento);
+
+            if (tabela[pos] == null) {
+                comparacoes++;
+                tabela[pos] = elemento;
+            } else if (tabela[pos].getPalavra().equals(elemento.getPalavra())) {
+                comparacoes++;
+                tabela[pos].setQuantidade(tabela[pos].getQuantidade() + 1);
+            } else if ((tamanhoVetorHash + reserva) < tabela.length) {
+                comparacoes++;
+                tabela[tamanhoVetorHash + reserva] = elemento;
+                reserva++;
+            } else {
+                throw new Exception("::ERRO:: Area de reserva cheia");
+            }
+            System.out.println(obterInformacoesPesquisa());
         }
-        System.out.println(obterInformacoesPesquisa());
+        
+        
     }
  
     /**
@@ -170,6 +175,24 @@ public class HashAberto {
         listaElementos.forEach((elemento) -> {
             System.out.println(elemento.toString());
         });
+    }
+    
+    
+    /**
+     * Método para validar se a palavra pode ser adicionada na estrutura de
+     * dados
+     *
+     * @author Gabriel Haddad
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser
+     * inserida e a quantidade de vezes que ela aparece no texto
+     * @return boolean - Retorna true caso a palavra esteja válida para
+     * inserção, caso contrário retorna false
+     */
+    public boolean validarAdicaoPalavra(ElementoFrase palavra) {
+        return tamanhoVetorHash <= 1024
+                && palavra != null && palavra.getPalavra() != null
+                && palavra.getPalavra().length() <= 20
+                && palavra.getPalavra().length() > 0;
     }
 
     /**
