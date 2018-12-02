@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package EstruturasDados;
 
 import Util.ComparadorElementoFrase;
@@ -11,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * Classe que representa a estrutura de dados Hash com Endereçamento Aberto
  *
  * @author Gabriel Haddad
  */
@@ -37,7 +33,7 @@ public class HashAberto {
         this.tabela = new ElementoFrase[m + t];
     }
     
-        public int getComparacoes() {
+    public int getComparacoes() {
         return comparacoes;
     }
 
@@ -49,18 +45,44 @@ public class HashAberto {
         return tempoGasto;
     }
  
+    /**
+     * Método para limpar a estrutura de dados
+     *
+     * @author Gabriel Haddad
+     */
     public void zerarTabela() {
         for (int i = 0; i < tabela.length; i++)
             this.tabela[i] = null;
     }
  
-    private int hash(ElementoFrase k) {
-        int hash = k.getPalavra().hashCode();
+    /**
+     * Método para cálculo do hash, obtendo a posição onde o elemento deve ser inserido
+     *
+     * @author Gabriel Haddad
+     * @param elemento ElementoFrase - elemento a ser inserido na estrutura
+     * @return retorna a posição que o elemento será inserido no vetor 
+     * após calcular o hash
+     */
+    private int hash(ElementoFrase elemento) {
+        int hash = elemento.getPalavra().hashCode();
         return hash % tamanhoVetorHash * (hash >= 0 ? 1 : -1);
     }
  
+    /**
+     * Método para inserir uma palavra na estrutura de dados, verificando se a mesma 
+     * já está presente e incrementando-a caso esteja<br>
+     * Se um elemento diferente já estiver na posição, o elemento é direcionado para 
+     * a área de reserva
+     *
+     * @author Gabriel Haddad
+     * @param elemento ElementoFrase - elemento a ser inserido na estrutura de dados
+     * @throws java.lang.Exception - Lança exceção caso algum erro ocorra na inserção
+     */
     public void inserir(ElementoFrase elemento) throws Exception {
         comparacoes = 0;
+        System.out.println("------------------------------");
+        System.out.println("Adicionando: \"" + elemento.getPalavra() + "\"");
+        
         int pos = hash(elemento);
  
         if (tabela[pos] == null) {
@@ -76,12 +98,30 @@ public class HashAberto {
         } else {
             throw new Exception("::ERRO:: Area de reserva cheia");
         }
+        System.out.println(obterInformacoesPesquisa());
     }
  
+    /**
+     * Método para calcular a porcentagem de colisões que ocorreram ao inserir
+     * os elementos
+     *
+     * @author Gabriel Haddad
+     * @return retorna a porcentagem de elementos na área de reserva em relação
+     * ao tamanho do vetor
+     */
     private double colisoes() {
         return reserva / tamanhoVetorHash * 100;
     }
  
+    /**
+     * Método para remover um elemento da estrutura de dados<br>
+     * Caso um elemento referente a posição alterada esteja na área de reserva, ele
+     * será transferido para esta posição da estrutura
+     *
+     * @author Gabriel Haddad
+     * @param elemento ElementoFrase - Elemento a ser removido da estrutura
+     * @throws java.lang.Exception - Lança exceção caso um erro ocorra na remoção
+     */
     public void remover(ElementoFrase elemento) throws Exception {
         int pos = hash(elemento);
  
@@ -112,6 +152,12 @@ public class HashAberto {
         }
     }
     
+    /**
+     * Método para imprimir todos elementos da estrutura de dados, transferindo 
+     * todos elementos para um ArrayList e ordenando-os antes de imprimi-los
+     *
+     * @author Gabriel Haddad
+     */
     public void imprimirHashOrdenado(){
         ArrayList<ElementoFrase> listaElementos = new ArrayList();
         for (ElementoFrase elemento : tabela){
@@ -126,4 +172,14 @@ public class HashAberto {
         });
     }
 
+    /**
+     * Método para obter o número de comparações e o tempo gasto na pesquisa
+     *
+     * @author Gabriel Haddad
+     * @return String - retorna o número de comparações e o tempo gasto na
+     * pesquisa em uma String
+     */
+    public String obterInformacoesPesquisa(){
+        return "Comparações: " + getComparacoes() + "\nTempo Gasto: " + getTempoGasto() + " ms";
+    }
 }

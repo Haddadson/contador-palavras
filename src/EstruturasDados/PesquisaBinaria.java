@@ -5,37 +5,40 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**Classe para representar a estrutura de dados que utiliza pesquisa binária
+/**
+ * Classe para representar a estrutura de dados que utiliza pesquisa binária
  * para checar se o elemento já existe
  *
  * @author Gabriel Haddad
  */
 public class PesquisaBinaria extends PesquisaArray {
+
     private ElementoFrase[] arrayElementoFrase;
-    
-    public PesquisaBinaria(){
+
+    public PesquisaBinaria() {
         super.listaPalavras = new ArrayList<>();
         super.comparacoes = 0;
         super.tempoGasto = 0;
     }
-    
-    /**Método para adicionar uma palavra na estrutura, validando se a mesma já 
-     * está presente para incrementar sua quantidade e adicionando-a caso não 
+
+    /**
+     * Método para adicionar uma palavra na estrutura, validando se a mesma já
+     * está presente para incrementar sua quantidade e adicionando-a caso não
      * esteja
      *
      * @author Gabriel Haddad
-     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser 
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser
      * inserida e a quantidade de vezes que ela aparece no texto
      */
-    public void adicionarEmLista(ElementoFrase palavra){
-        if(validarAdicaoPalavra(palavra)){
+    public void adicionarEmLista(ElementoFrase palavra) {
+        if (validarAdicaoPalavra(palavra)) {
             comparacoes = 0;
             long tempoInicial = System.currentTimeMillis();
-            
+
             System.out.println("------------------------------");
             System.out.println("Adicionando: \"" + palavra.getPalavra() + "\"");
 
-            if(listaPalavras.isEmpty()){
+            if (listaPalavras.isEmpty()) {
                 comparacoes++;
                 listaPalavras.add(palavra);
             } else {
@@ -55,15 +58,17 @@ public class PesquisaBinaria extends PesquisaArray {
         }
     }
 
-    /**Método para realizar a pesquisa binária no vetor, verificando se o elemento
-     * já está presente
+    /**
+     * Método para realizar a pesquisa binária no vetor, verificando se o
+     * elemento já está presente
      *
      * @author Gabriel Haddad
-     * @param arr ElementoFrase[] - vetor de ElementoFrase que representa a estrutura 
-     * de dados
-     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser 
+     * @param arr ElementoFrase[] - vetor de ElementoFrase que representa a
+     * estrutura de dados
+     * @param palavra ElementoFrase - objeto que encapsula a palavra a ser
      * inserida e a quantidade de vezes que ela aparece no texto
-     * @return -1 caso não encontre o elemento, a posição do elemento caso encontre
+     * @return -1 caso não encontre o elemento, a posição do elemento caso
+     * encontre
      */
     public int pesquisaBinaria(ElementoFrase arr[], String palavra) {
         int low = 0;

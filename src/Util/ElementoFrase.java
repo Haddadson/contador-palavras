@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Util;
 
 /**
+ * Classe para encapsular a palavra e a quantidade de vezes que ela aparece no
+ * texto a ser lido
  *
  * @author Gabriel Haddad
  */

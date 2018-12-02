@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package EstruturasDados;
 
 import Util.ElementoFrase;
 import java.util.ArrayList;
 
 /**
+ * Classe para representar a estrutura de dados <b>Lista Encadeada</b>, utilizada na
+ * estrutura Hash - Lista Encadeada
  *
  * @author Gabriel Haddad
  */
@@ -46,12 +43,20 @@ public class Lista {
     public long getTempoGasto() {
         return tempoGasto;
     }
+    
 
-    public void inserirInicio(ElementoFrase x) {
+    /**
+     * Método para inserir um elemento no início da lista, verificando se o elemento
+     * já está presente na lista e incrementando-o caso esteja<br>
+     *
+     * @author Gabriel Haddad
+     * @param elemento ElementoFrase - elemento a ser inserido no início da estrutura
+     */
+    public void inserirInicio(ElementoFrase elemento) {
         if (primeiroEstaNulo()) {
-            primeiro = new Celula(x);
-        } else if (!pesquisarEIncrementarQuantidadePalavra(x.getPalavra())) {
-            Celula tmp = new Celula(x);
+            primeiro = new Celula(elemento);
+        } else if (!pesquisarEIncrementarQuantidadePalavra(elemento.getPalavra())) {
+            Celula tmp = new Celula(elemento);
 
             tmp.ant = primeiro;
             tmp.prox = primeiro.prox;
@@ -66,42 +71,35 @@ public class Lista {
         }
     }
 
-    public void inserirFim(ElementoFrase x) {
+    
+    /**
+     * Método para inserir um elemento no fim da lista, verificando se o
+     * elemento já está presente na lista e incrementando-o caso esteja<br>
+     *
+     * @author Gabriel Haddad
+     * @param elemento ElementoFrase - elemento a ser inserido no fim da
+     * estrutura
+     */
+    public void inserirFim(ElementoFrase elemento) {
         if(primeiroEstaNulo()){
             comparacoes++;
-            primeiro = new Celula(x);
-        } else if (!pesquisarEIncrementarQuantidadePalavra(x.getPalavra())) {
-            ultimo.prox = new Celula(x);
+            primeiro = new Celula(elemento);
+        } else if (!pesquisarEIncrementarQuantidadePalavra(elemento.getPalavra())) {
+            ultimo.prox = new Celula(elemento);
             ultimo.prox.ant = ultimo;
             ultimo = ultimo.prox;
             this.qtdItens++;
         }
     }
 
-    public void inserir(ElementoFrase x, int pos) throws Exception {
-        if (pos == 0 && primeiroEstaNulo()) {
-            primeiro = new Celula(x);
-        } else if(!pesquisarEIncrementarQuantidadePalavra(x.getPalavra())){
-            if (pos < 0 || pos > qtdItens) {
-                throw new Exception("Erro!");
-            } else if (pos == 0) {
-                inserirInicio(x);
-            } else if (pos == qtdItens) {
-                inserirFim(x);
-            } else {
-                Celula i = primeiro;
-                for (int j = 0; j < pos; j++, i = i.prox)
-				;
-                Celula tmp = new Celula(x);
-                tmp.ant = i;
-                tmp.prox = i.prox;
-                tmp.ant.prox = tmp.prox.ant = tmp;
-                tmp = i = null;
-            }
-            this.qtdItens++;
-        }
-    }
-
+    
+    /**
+     * Método para remover o elemento do início da lista
+     *
+     * @author Gabriel Haddad
+     * @return ElementoFrase - retorna o elemento removido
+     * @throws java.lang.Exception - Lança exceção caso a lista esteja vazia
+     */
     public ElementoFrase removerInicio() throws Exception {
         if (primeiro == ultimo) {
             throw new Exception("Erro!");
@@ -112,10 +110,16 @@ public class Lista {
         tmp.prox = primeiro.ant = null;
         tmp = null;
         this.qtdItens--;
-
         return elemento;
     }
 
+    /**
+     * Método para remover o elemento do fim da lista
+     *
+     * @author Gabriel Haddad
+     * @return ElementoFrase - retorna o elemento removido
+     * @throws java.lang.Exception - Lança exceção caso a lista esteja vazia
+     */
     public ElementoFrase removerFim() throws Exception {
         if (primeiro == ultimo) {
             throw new Exception("Erro!");
@@ -128,28 +132,14 @@ public class Lista {
         return elemento;
     }
 
-    public ElementoFrase remover(int pos) throws Exception {
-        ElementoFrase elemento;
-        if (primeiro == ultimo) {
-            throw new Exception("Erro!");
-        } else if (pos < 0 || pos >= qtdItens) {
-            throw new Exception("Erro!");
-        } else if (pos == 0) {
-            elemento = removerInicio();
-        } else if (pos == qtdItens - 1) {
-            elemento = removerFim();
-        } else {
-            Celula i = primeiro.prox;
-            for (int j = 0; j <= pos; j++, i = i.prox);
-            i.ant.prox = i.prox;
-            i.prox.ant = i.ant;
-            elemento = i.getElemento();
-            i.prox = i.ant = null;
-            i = null;
-        }
-        return elemento;
-    }
-    
+    /**
+     * Método para remover o elemento específico da lista
+     *
+     * @author Gabriel Haddad
+     * @param palavra String - palavra a ser removida da lista
+     * @return ElementoFrase - retorna o elemento removido
+     * @throws java.lang.Exception - Lança exceção caso a lista esteja vazia
+     */
     public ElementoFrase removerPorPalavra(String palavra) throws Exception {
         Celula aux = primeiro.prox;
         ElementoFrase elemento;
@@ -174,30 +164,32 @@ public class Lista {
         return null;
     }
     
+    
+    /**
+     * Método para limpar a estrutura de dados
+     *
+     * @author Gabriel Haddad
+     * @throws java.lang.Exception - Lança exceção caso a lista já esteja vazia
+     */
     public void limparLista() throws Exception {
         while (primeiro != ultimo) {
             removerFim();
         }
     }
 
-    public ElementoFrase pesquisarPorPosicao(int pos) throws Exception {
-        Celula aux;
-
-        if (!posicaoExiste(pos)) {
-            throw new Exception("A posição informada não existe !");
-        }
-
-        aux = primeiro;
-        for (int i = pos; i > 0; i--) {
-            aux = aux.prox;
-        }
-        return aux.getElemento();
-    }
-
-    public ElementoFrase pesquisarPorPalavraElementoFrase(String nome) {
+    
+    /**
+     * Método para buscar elemento na estrutura por palavra
+     *
+     * @author Gabriel Haddad
+     * @param palavra String - palavra a ser buscada na estrutura
+     * @return ElementoFrase - retorna o elemento encontrado na estrutura, caso não encontre
+     * retorna <i>null</i>
+     */
+    public ElementoFrase pesquisarPorPalavraElementoFrase(String palavra) {
         Celula aux = primeiro;
 
-        while (aux != null && (!nome.equalsIgnoreCase(aux.getElemento().getPalavra()))) {
+        while (aux != null && (!palavra.equalsIgnoreCase(aux.getElemento().getPalavra()))) {
             aux = aux.prox;
         }
 
@@ -207,11 +199,20 @@ public class Lista {
         return null;
     }
 
-    public boolean pesquisarEIncrementarQuantidadePalavra(String nome){
+    
+    /**
+     * Método para buscar elemento na estrutura por palavra, incrementando-o caso o encontre
+     *
+     * @author Gabriel Haddad
+     * @param palavra String - palavra a ser buscada na estrutura
+     * @return boolean - retorna <i>true</i> caso encontre o elemento e 
+     * <i>false</i> caso não encontre
+     */
+    public boolean pesquisarEIncrementarQuantidadePalavra(String palavra){
         Celula aux = primeiro;
         long tempoInicial = System.currentTimeMillis();
         while (aux != null && aux.getElemento() != null 
-               && !nome.equalsIgnoreCase(aux.getElemento().getPalavra())) {
+               && !palavra.equalsIgnoreCase(aux.getElemento().getPalavra())) {
             comparacoes += 2;
             aux = aux.prox;
         }
@@ -225,29 +226,15 @@ public class Lista {
         setTempoGasto(System.currentTimeMillis() - tempoInicial);
         return false;
     }
+
     
-    public void mostrar() {
-        Celula i = primeiro;
-        while (i != null) {
-            if (i.getElemento() != null) {
-                System.out.println(i.getElemento().toString());
-            }
-            i = i.prox;
-        }
-    }
-
-    public String preencherString() {
-        Celula i = primeiro;
-        String stringPreenchido = "";
-        while (i != null) {
-            if (i.getElemento() != null) {
-                stringPreenchido += i.getElemento().toString() + "\n";
-            }
-            i = i.prox;
-        }
-        return stringPreenchido;
-    }
-
+    /**
+     * Método preencher ArrayList com todos elementos da lista
+     *
+     * @author Gabriel Haddad
+     * @return ArrayList: ElementoFrase - retorna ArrayList com todos elementos da estrutura
+     *
+     */
     public ArrayList<ElementoFrase> obterListaComTodos(){
         Celula i = primeiro;
         ArrayList<ElementoFrase> listaElementos = new ArrayList<>();
@@ -261,14 +248,25 @@ public class Lista {
         return listaElementos;
     }
     
+    
+    /**
+     * Método para verificar se a estrutura está vazia
+     *
+     * @author Gabriel Haddad
+     * @return boolean - retorna <i>true</i> caso esteja e <i>false</i> caso não esteja
+     */
     public boolean isEmpty() {
         return primeiro == ultimo;
     }
 
-    private boolean posicaoExiste(int posicao) {
-        return posicao >= 0 && posicao < qtdItens;
-    }
-    
+
+    /**
+     * Método para verificar se o primeiro elemento da estrutura está nulo
+     *
+     * @author Gabriel Haddad
+     * @return boolean - retorna <i>true</i> caso esteja e <i>false</i> caso não
+     * esteja
+     */    
     private boolean primeiroEstaNulo(){
         return primeiro.getElemento() == null;
     }

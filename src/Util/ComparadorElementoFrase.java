@@ -3,6 +3,8 @@ package Util;
 import java.util.Comparator;
 
 /**
+ * Classe filha de Comparator para possibilitar a comparações de ElementoFrase
+ * através da propriedade <i>palavra</i>
  *
  * @author Gabriel Haddad
  */
